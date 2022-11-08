@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+<style>
+  
+</style>
+    </head>
+    <body >
+    <script>
+        //JSON data
+        var data = [{
+        "id": "1",
+        "name": "google",
+        "url": "www.google.com",
+        "subData": [
+            {
+                "id": "2",
+                "name": "walla",
+                "url": "www.walla.co.il"
+            },
+            {
+                "id": "3",
+                "name": "ynet",
+                "url": "www.ynet.co.il",
+                "subData": [
+                    {
+                        "id": "4",
+                        "name": "mako",
+                        "url": "www.mako.co.il"
+                    },
+                    {
+                        "id": "5",
+                        "name": "google",
+                        "url": "www.google.com"
+                    },
+                    {
+                        "id": "6",
+                        "name": "walla",
+                        "url": "www.walla.co.il"
+                    }
+                ]
+            },
+            {
+                "id": "7",
+                "name": "google",
+                "url": "www.google.com"
+            }
+        ]
+    },
+    {
+        "id": "8",
+        "name": "ynet",
+        "url": "www.ynet.co.il",
+        "subData": [
+            {
+                "id": "9",
+                "name": "walla",
+                "url": "www.walla.co.il"
+            },
+            {
+                "id": "10",
+                "name": "google",
+                "url": "www.google.com",
+                "subData": [
+                    {
+                        "id": "11",
+                        "name": "ynet",
+                        "url": "www.ynet.co.il",
+                        "subData": [
+                            {
+                                "id": "12",
+                                "name": "walla",
+                                "url": "www.walla.co.il"
+                            },
+                            {
+                                "id": "13",
+                                "name": "google",
+                                "url": "www.google.com"
+                            },
+                            {
+                                "id": "14",
+                                "name": "mako",
+                                "url": "www.mako.co.il"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "15",
+                        "name": "google",
+                        "url": "www.google.com"
+                    },
+                    {
+                        "id": "16",
+                        "name": "mako",
+                        "url": "www.mako.co.il"
+                    }
+                ]
+            },
+            {
+                "id": "17",
+                "name": "walla",
+                "url": "www.walla.co.il",
+                "subData": [
+                    {
+                        "id": "18",
+                        "name": "ynet",
+                        "url": "www.ynet.co.il"
+                    },
+                    {
+                        "id": "19",
+                        "name": "google",
+                        "url": "www.google.com"
+                    },
+                    {
+                        "id": "20",
+                        "name": "walla",
+                        "url": "www.walla.co.il"
+                    }
+                ]
+            },
+            {
+                "id": "21",
+                "name": "mako",
+                "url": "www.mako.co.il"
+            }
+        ]
+    }]
+
+    const map = new Map(Object.entries((data))); //  create a Map by passing the json data.
+    for (const value of map.values()) { // function that handle the parents with out the subData. if there are subData call the function get_subData 
+        let div = document.createElement("div");
+            let divText =  document.createTextNode("Id:" + value.id);
+            var br = document.createElement('br');
+            var br1 = document.createElement('br');
+            var br2 = document.createElement('br');
+            let divText1 =  document.createTextNode("Site name:" +value.name);
+            let tag_a = document.createElement("a");
+            let divText2 =  document.createTextNode("Site url:" +value.name);
+            tag_a.appendChild(divText2)
+            tag_a.title = value.name;
+            tag_a.href = value.url;
+            tag_a.href = "http://"+value.url
+            tag_a.target = "_blank";
+            div.appendChild(divText)
+            div.appendChild(br)
+            div.appendChild(divText1)
+            div.appendChild(br1)
+            document.body.appendChild(div)
+            div.appendChild(tag_a);
+            div.id = "div" + value.id
+            console.log(div.id)
+            document.getElementById(div.id).style.border = "thin  solid green";
+            document.getElementById(div.id).style.margin = "15px";
+            document.getElementById(div.id).style.borderRadius = "10px";
+            document.getElementById(div.id).style.border = "thin  solid green";
+            document.getElementById(div.id).style.borderRadius = "10px";
+            document.getElementById(div.id).style.backgroundColor = "#89CFF0" ;
+            document.getElementById(div.id).style.width = "250px";
+            document.getElementById(div.id).style.float = "left";
+            document.getElementById(div.id).style.margin = "5px";
+            if(value.subData != null){
+                get_subData(value.subData,div.id)
+
+            }
+            div.appendChild(br2)
+
+}
+// function that analyze the subData and when there are sub-subData then recall the function.
+function get_subData(values,div_id){ 
+    for (const value of values){
+        let new_div = document.createElement("div");
+        document.getElementById(div_id).appendChild(new_div);  
+        let divText =  document.createTextNode("Id:" + value.id);
+        var br = document.createElement('br');
+        var br1 = document.createElement('br');
+        let divText1 =  document.createTextNode("Site name:" +value.name);
+        let tag_a = document.createElement("a");
+        let divText2 =  document.createTextNode("Site url:" +value.name);
+        tag_a.appendChild(divText2)
+        tag_a.title = value.name;
+        tag_a.href = "http://"+value.url
+        tag_a.target = "_blank";
+        new_div.appendChild(divText)
+        new_div.appendChild(br)
+        new_div.appendChild(divText1)
+        new_div.appendChild(br1)
+        new_div.appendChild(tag_a);
+        new_div.id = div_id + value.id
+        var h =  240;
+        var s = Math.floor(Math.random() * 100); // random box background color.
+        var l =  Math.floor(Math.random() * 100);
+        var bgColor = 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
+        document.getElementById(new_div.id).style.border = "thin  solid green";
+        document.getElementById(new_div.id).style.margin = "15px";
+        document.getElementById(new_div.id).style.borderRadius = "10px";
+        if(value.subData !=null){
+            get_subData(value.subData,new_div.id)
+            document.getElementById(new_div.id).style.backgroundColor = bgColor;
+        }
+    }
+}
+        </script> 
+    </body>
+    </html>
+  
